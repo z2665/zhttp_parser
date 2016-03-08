@@ -63,10 +63,19 @@ extern void initReMap();
 //获取状态码对应文字
 extern string GetStatusText(zhttp_status status);
 extern string GetMIMEText(MIME mime);
+//url
+struct URL
+{
+	string path;//路径
+	vector<string> parameters;//参数
+};
+//
 //request头
 struct request
 {
 	zhttp_options Options;//请求方式
+	string RquestBody;//请求体 一般是post json
+	URL url;//统一资源定位器
 	string If_Modified_Since;//浏览器端缓存页面的最后修改时间发送到服务器去，服务器会把这个时间与服务器上实际文件的最后修改时间进行对比
 	string If_None_Match;//If-None-Match和ETag一起工作.Etag由服务器端生成，客户端通过If-Match或者说If-None-Match这个条件判断请求来验证资源是否修改。
 	string Pragma;//是否一定返回新内容.在HTTP/1.0版本中，只实现了Pragema:no-cache, 没有实现Cache-Control
@@ -103,13 +112,5 @@ struct  response
 	string Refresh;//表示浏览器应该在多少时间之后刷新文档
 
 };
-struct URL
-{
 
-};
-//
-struct parmas
-{
-
-};
 }
