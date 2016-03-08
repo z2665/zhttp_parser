@@ -63,6 +63,9 @@ extern void initReMap();
 //获取状态码对应文字
 extern string GetStatusText(zhttp_status status);
 extern string GetMIMEText(MIME mime);
+//获取文字对应类型
+extern MIME GetMIMEByText(string src);
+extern zhttp_options GetOptionByText(string src);
 //url
 struct URL
 {

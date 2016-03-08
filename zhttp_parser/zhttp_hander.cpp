@@ -85,4 +85,10 @@ namespace zhttp_hander {
 	 string GetMIMEText(MIME mime) {
 		return MIME_str[mime];
 	}
+	 MIME GetMIMEByText(string src) {
+		 return REMIME_str[src];
+	 }
+	 zhttp_options GetOptionByText(string src) {
+		 return zhttp_reoptions_str[src];
+	 }
 }

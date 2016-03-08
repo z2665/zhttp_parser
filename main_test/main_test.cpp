@@ -25,9 +25,11 @@ userName=new_andy&password=new_andy\\r\\n";
 	zhttp_parser::basecoder::init();
 	zhttp_parser::basecoder base;
 	//创建request映射
-	base.MakeRequestMap(http);
+	auto hmap=base.MakeRequestMap(http);
 	//测试逆map是否成功
 	zhttp_hander::zhttp_options op= zhttp_hander::zhttp_reoptions_str["POST"];
+	//测试mapToStruct
+	base.RequestMapToStuct(hmap);
     return 0;
 }
 

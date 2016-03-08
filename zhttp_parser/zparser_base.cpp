@@ -39,6 +39,25 @@ namespace zhttp_parser {
 	basecoder::PRequest basecoder::RequestMapToStuct(basecoder::PMap pmap)
 	{
 		PRequest req = make_shared<zhttp_hander::request>();
+		//不需要特殊处理的request属性
+		req->Accept_Charset = (*pmap)["Accept-Charset"];
+		req->Accept_Encoding = (*pmap)["Accept-Encoding"];
+		req->Accept_Language = (*pmap)["Accept-Language"];
+		req->Cache_Control = (*pmap)["Cache-Control"];
+		req->Connection = (*pmap)["Connection"];
+		req->Content_Length = (*pmap)["Content-Length"];
+		req->Content_Type = zhttp_hander::GetMIMEByText((*pmap)["Content-Type"]);
+		req->Cookie = (*pmap)["Cookie"];
+		req->Host= (*pmap)["Host"];
+		req->If_Modified_Since= (*pmap)["If-Modified-Since"];
+		req->If_None_Match= (*pmap)["If-None-Match"];
+		req->Options=zhttp_hander::GetOptionByText( (*pmap)["Options"]);
+		req->Pragma= (*pmap)["Pragma"];
+		req->Referer= (*pmap)["Referer"];
+		req->RquestBody= (*pmap)["RquestBody"];
+		req->User_Agent= (*pmap)["User-Agent"];
+		//需要特殊处理的request属性
+
 		return req;
 	}
 	//编码器，将struct转换为string
