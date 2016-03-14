@@ -4,3 +4,6 @@
 *.opendb
 /ipch
 **/Release
+*.vcxproj
+*.filters
+
