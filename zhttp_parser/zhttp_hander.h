@@ -5,8 +5,9 @@
 #include<vector>
 namespace zhttp_hander {
 	using namespace std;
-	extern string CRLF;
-		extern string Http_Version;
+	extern const string CRLF;
+    extern const string Http_Version;
+	extern const string Space;
 //http¶¯×÷
 	enum class zhttp_options
 {

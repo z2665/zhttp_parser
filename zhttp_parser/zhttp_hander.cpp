@@ -14,8 +14,9 @@ namespace zhttp_hander {
 	map<string,MIME> REMIME_str;
 	//request项的string集合
 	set<string>request_str;
-	 string CRLF = "\\r\\n";
-	string Http_Version = "HTTP/1.0";
+	const string CRLF = "\\r\\n";
+	const string Space = " ";
+	const string Http_Version = "HTTP/1.0";
 	void initStrs() {
 		//初始化option对应字符
 		zhttp_options_str[zhttp_options::GET] = "GET";

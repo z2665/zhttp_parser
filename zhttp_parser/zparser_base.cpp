@@ -16,7 +16,7 @@ namespace zhttp_parser {
 	//将requset转换为map
 	basecoder::PMap basecoder::MakeRequestMap(string pack) {
 		//按crfl分割字符串
-		shared_ptr<map<string, string>> requestMap = make_shared<map<string, string>>();
+		PMap requestMap = make_shared<map<string, string>>();
 		auto vl= split(pack, zhttp_hander::CRLF,false);
 		auto vlhead = split((*vl)[0], " ",true);
 		//http包第一行
@@ -60,7 +60,34 @@ namespace zhttp_parser {
 
 		return req;
 	}
-	//编码器，将struct转换为string
+	//编码器，将map转换为string
+	string basecoder::RequestMapToString(PMap pmap)
+	{
+		string pack;
+		//构建第一行特殊行
+		pack += (*pmap)["Options"] + zhttp_hander::Space + (*pmap)["URL"] + zhttp_hander::Space + zhttp_hander::Http_Version + zhttp_hander::CRLF;
+		//保存requestBody
+		string tmp = (*pmap)["RquestBody"];
+		//删除特殊元素
+		pmap->erase(pmap->find("Options"));
+		pmap->erase(pmap->find("URL"));
+		pmap->erase(pmap->find("RquestBody"));
+		//遍历容器进行处理
+		for (auto& pair : (*pmap))
+		{
+			pack += makeRow(pair);
+		}
+		//request头和body分离
+		pack += zhttp_hander::CRLF;
+		//附加body
+		pack += tmp+zhttp_hander::CRLF;
+		return pack;
+	}
+	//创建request头的行
+	std::string basecoder::makeRow(decltype(*HttpMap::iterator()) pair)
+	{
+		return pair.first + ":"+zhttp_hander::Space + pair.second + zhttp_hander::CRLF;
+	}
 	//分割字符串
 	shared_ptr<std::vector<std::string>>  basecoder::split(std::string  source, string condition,bool needLast) {
 		shared_ptr<vector<string>> pvec = make_shared<vector<string>>();
