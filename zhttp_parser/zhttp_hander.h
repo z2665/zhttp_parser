@@ -8,7 +8,7 @@ namespace zhttp_hander {
 	extern const string CRLF;
     extern const string Http_Version;
 	extern const string Space;
-	const char* zhttp_version = "0.0.2";
+	extern const char* zhttp_version;
 //http动作
 	enum class zhttp_options
 {
@@ -65,6 +65,7 @@ extern void initReMap();
 //获取状态码对应文字
 extern string GetStatusText(zhttp_status status);
 extern string GetMIMEText(MIME mime);
+extern string GetOptionText(zhttp_options option);
 //获取文字对应类型
 extern MIME GetMIMEByText(string src);
 extern zhttp_options GetOptionByText(string src);

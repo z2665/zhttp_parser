@@ -100,7 +100,45 @@ namespace zhttp_parser {
 		pack += tmp+zhttp_hander::CRLF;
 		return pack;
 	}
-	//创建request头的行
+	//将struct转换为map
+	basecoder::PMap  basecoder::RequestStuctToMap(PRequest req)
+	{
+		PMap requestMap = make_shared<map<string, string>>();
+		//插入无需特殊处理的项
+		InsertMapIfNotNull(requestMap, make_pair("Accept-Charset", req->Accept_Charset));
+		InsertMapIfNotNull(requestMap, make_pair("Accept-Encoding", req->Accept_Encoding));
+		InsertMapIfNotNull(requestMap, make_pair("Accept-Language", req->Accept_Language));
+		InsertMapIfNotNull(requestMap, make_pair("Cache-Control", req->Cache_Control));
+		InsertMapIfNotNull(requestMap, make_pair("Connection", req->Connection));
+		InsertMapIfNotNull(requestMap, make_pair("Content-Length", req->Content_Length));
+		InsertMapIfNotNull(requestMap, make_pair("Content-Type", zhttp_hander::GetMIMEText(req->Content_Type)));
+		InsertMapIfNotNull(requestMap, make_pair("Cookie", req->Cookie));
+		InsertMapIfNotNull(requestMap, make_pair("Host", req->Host));
+		InsertMapIfNotNull(requestMap, make_pair("If-Modified-Since", req->If_Modified_Since));
+		InsertMapIfNotNull(requestMap, make_pair("If-None-Match", req->If_None_Match));
+		InsertMapIfNotNull(requestMap, make_pair("Options", zhttp_hander::GetOptionText(req->Options)));
+		InsertMapIfNotNull(requestMap, make_pair("Pragma", req->Pragma));
+		InsertMapIfNotNull(requestMap, make_pair("Referer", req->Referer));
+		InsertMapIfNotNull(requestMap, make_pair("RquestBody", req->RquestBody));
+		InsertMapIfNotNull(requestMap, make_pair("User-Agent", req->User_Agent));
+		//处理url并插入
+		string tmpurl = req->url.path;
+		//第一项
+		bool fr = true;
+		for (auto &i : req->url.parameters) {
+			//如果是第一项则插入参数符号
+			if (fr) {
+				tmpurl += "?" + (i.first + "=" + i.second);
+				fr = false;
+			}
+			//如果不是第一项则加上连接字符
+			tmpurl += "&" + (i.first + "=" + i.second);
+		}
+		(*requestMap)["URL"] = tmpurl;
+		return requestMap;
+
+	}
+	//创建Header头的行
 	std::string basecoder::makeRow(decltype(*HttpMap::iterator()) pair)
 	{
 		return pair.first + ":"+zhttp_hander::Space + pair.second + zhttp_hander::CRLF;
@@ -121,5 +159,11 @@ namespace zhttp_parser {
 		}
 		return pvec;
 	}
+	void basecoder::InsertMapIfNotNull(PMap pmap, const pair<string,string> src) {
+		if (!src.second.empty()) {
+			(*pmap)[src.first] = src.second;
+			}
+	}
+		
 }
 

@@ -2,6 +2,8 @@
 #include"zhttp_hander.h"
 namespace zhttp_hander {
 	using namespace std;
+	//版本号
+	const char* zhttp_version = "0.0.2";
 	//保存options对应的str
 	map<zhttp_options, string> zhttp_options_str;
 	//逆str数组
@@ -91,5 +93,8 @@ namespace zhttp_hander {
 	 }
 	 zhttp_options GetOptionByText(string src) {
 		 return zhttp_reoptions_str[src];
+	 }
+	 string GetOptionText(zhttp_options option) {
+		 return zhttp_options_str[option];
 	 }
 }

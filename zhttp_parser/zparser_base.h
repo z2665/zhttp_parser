@@ -17,15 +17,20 @@ namespace zhttp_parser {
 		static void init();
 		//从http包映射到map
 		PMap MakeRequestMap(std::string pack);
+		//PMap MakeResponseMap()
 		//生成结构体
 		PRequest RequestMapToStuct(PMap pmap);
 		//生成string
 		std::string RequestMapToString(PMap pmap);
+		//生成map
+		PMap RequestStuctToMap(PRequest req);
 	private:
 		//字符串分割
 		std::shared_ptr<std::vector<std::string>> split(std::string  source, std::string condition, bool needLast);	
 		//创建request头的行
 		std::string makeRow(decltype(*HttpMap::iterator()) pair);
+		//如果结构体项不为空则插入map
+		inline void InsertMapIfNotNull(PMap pmap, const  std::pair<std::string, std::string> src);
 	
 	};
 }

@@ -30,7 +30,9 @@ userName=new_andy&password=new_andy\\r\\n";
 	//≤‚ ‘ƒÊmap «∑Ò≥…π¶
 	zhttp_hander::zhttp_options op= zhttp_hander::zhttp_reoptions_str["POST"];
 	//≤‚ ‘mapToStruct
-	base.RequestMapToStuct(hmap);
+	auto pstruct=base.RequestMapToStuct(hmap);
+	//≤‚ ‘StructTomap
+	auto pmap=base.RequestStuctToMap(pstruct);
     return 0;
 }
 
