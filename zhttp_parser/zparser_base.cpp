@@ -57,13 +57,30 @@ namespace zhttp_parser {
 		req->RquestBody= (*pmap)["RquestBody"];
 		req->User_Agent= (*pmap)["User-Agent"];
 		//需要特殊处理的request属性
-
+		//URL
+		auto urlpart = split((*pmap)["URL"], "?", true);//分开路径与参数部分
+		//如果url不为空
+		if (!urlpart->empty()) {
+			req->url.path = (*urlpart)[0];//将第一部分路径放入结构体
+			//如果存在第二部分
+			if (urlpart->size() > 1) {
+				//将参数分开
+				auto parms = split((*urlpart)[1], "&", true);
+				for (auto& i : *parms) {
+					auto pa = split(i, "=", true);
+					req->url.parameters.push_back(make_pair((*pa)[0], (*pa)[1]));
+				}
+			}
+		}
 		return req;
 	}
 	//编码器，将map转换为string
-	string basecoder::RequestMapToString(PMap pmap)
+	string basecoder::RequestMapToString(PMap pmapsrc)
 	{
 		string pack;
+		//复制一份副本
+		PMap pmap= make_shared<map<string, string>>();
+		pmap->insert(pmapsrc->begin(), pmapsrc->end());
 		//构建第一行特殊行
 		pack += (*pmap)["Options"] + zhttp_hander::Space + (*pmap)["URL"] + zhttp_hander::Space + zhttp_hander::Http_Version + zhttp_hander::CRLF;
 		//保存requestBody

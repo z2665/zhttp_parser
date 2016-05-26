@@ -1,0 +1,6 @@
+
+0.0.1 
+new 完成request部分解析并支持转换为map和struct
+0.0.2
+bugfix 修复RequestMapToString导致Map中项丢失的问题
+new 支持解析URL 

@@ -8,6 +8,7 @@ namespace zhttp_hander {
 	extern const string CRLF;
     extern const string Http_Version;
 	extern const string Space;
+	const char* zhttp_version = "0.0.2";
 //http动作
 	enum class zhttp_options
 {
@@ -71,7 +72,7 @@ extern zhttp_options GetOptionByText(string src);
 struct URL
 {
 	string path;//路径
-	vector<string> parameters;//参数
+	vector<pair<string,string>> parameters;//参数
 };
 //
 //request头

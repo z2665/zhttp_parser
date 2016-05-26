@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="ChangList.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

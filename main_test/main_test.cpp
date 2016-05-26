@@ -14,7 +14,7 @@
 using namespace std;
 int main()
 {
-	string http = "GET /index.jsp HTTP/1.1\\r\\n\
+	string http = "GET /index.jsp?name=z2665&pwd=z22 HTTP/1.1\\r\\n\
 Accept-Language: zh-cn\\r\\n\
 Connection: Keep-Alive\\r\\n\
 Host: 192.168.0.106\\r\\n\
